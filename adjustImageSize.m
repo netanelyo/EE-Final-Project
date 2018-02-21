@@ -1,4 +1,4 @@
-function [I,T,rect,Iref] = adjustImageSize(I,T,rect,Iref,pz)
+function [I,T,rect] = adjustImageSize(I,T,rect,pz)
 
 szT = size(T);
 mt = mod(szT(1:2),pz);
@@ -10,6 +10,5 @@ end
 szI = size(I);
 mi = mod(szI(1:2),pz);
 if(any(mi))
-    I = I(1:end-mi(1),1:end-mi(2), :);
-    Iref(1:end-mi(1),1:end-mi(2), :);    
+    I = I(1:end-mi(1),1:end-mi(2), :); 
 end
