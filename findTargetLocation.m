@@ -5,6 +5,7 @@ switch lower(modeType)
         [~,ind] = max(map(:));
     case 'min'
         [~,ind] = min(map(:));
+       
 end
 [y,x] = ind2sub(size(map),ind);
 rect = [x-WH(1)/2,y-WH(2)/2,WH];
