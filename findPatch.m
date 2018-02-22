@@ -1,4 +1,4 @@
-function [ rectOut,isValid ] = findPatch( originalPatch,originalPatchRect,newPatchEnv)
+function [ rectOut, isValid ] = findPatch( originalPatch,originalPatchRect,newPatchEnv)
 %   This function get a path from frame_t
 %   an environmant from frame_t+1 we susspetcs to contain the patch
 %   and find the patch in frame_t+1
