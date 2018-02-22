@@ -2,6 +2,7 @@ function [ features ] = findPatches(features, Icurr, currTime)
     [rows, cols] = size(Icurr);
     [~, numOfFeatures] = size(features);
     tmpPosition = zeros(21, 4);
+    patchSize = 26;
     for i = numOfFeatures:-1:1
         shift   = 20;
         envSize = 65;
@@ -24,9 +25,10 @@ function [ features ] = findPatches(features, Icurr, currTime)
         [tmp, valid] = findPatch(feature.data, ...
                                  [xPatch - envRect(1), ...
                                  yPatch - envRect(2), ...
-                                 envRect(3), envRect(4)], ...
+                                 patchSize, patchSize], ...
                                  IcurrEnv);
-        tmpPosition(i,:) = [tmp(1:2) + [envRect(1), envRect(2)], 26, 26];
+        tmpPosition(i,:) = [tmp(1:2) + [envRect(1), envRect(2)], ...
+                            patchSize, patchSize];
     end
     
     %% TODO: this is good if all are valid!
