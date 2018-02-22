@@ -15,10 +15,10 @@ szT = size(originalPatch);
 BBS = computeBBS(newPatchEnv,originalPatch,gamma, pz);
 BBS = BBinterp(BBS, szT(1:2), pz, NaN);
 if (max(BBS(:)) >= threshold)
-    [rectOut] = findTargetLocation(BBS,'max',originalPatchRect(3:4));
+    rectOut = round(findTargetLocation(BBS,'max',originalPatchRect(3:4)));
     isValid = true;
 else
-    [rectOut] = originalPatchRect;
+    rectOut = originalPatchRect;
     isValid = false;
 end
 
