@@ -1,8 +1,7 @@
 function [ features ] = findPatches(features, Icurr, currTime)
     [rows, cols] = size(Icurr);
     [~, numOfFeatures] = size(features);
-    tmpPosition = cell(1, numOfFeatures);
-    for i = 1:numOfFeatures
+    for i = numOfFeatures:-1:1
         shift   = 20;
         envSize = 65;
         feature = features(i);
