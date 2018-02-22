@@ -1,7 +1,7 @@
 function [ features ] = findPatches(features, Icurr, currTime)
     [rows, cols] = size(Icurr);
     [~, numOfFeatures] = size(features);
-    tmpPosition = zeros(4, 21);
+    tmpPosition = zeros(21, 4);
     for i = numOfFeatures:-1:1
         shift   = 20;
         envSize = 65;
@@ -21,17 +21,18 @@ function [ features ] = findPatches(features, Icurr, currTime)
         envRect = setEnvironment(xPatch - shift, yPatch - shift, ...
                                  envSize, cols, rows);
         IcurrEnv = imcrop(Icurr, envRect);
-        [tmpPosition(:,i), valid] = findPatch(feature.data, ...
-                                            [xPatch - envRect(1), ...
-                                            yPatch - envRect(2), ...
-                                            envRect(3), envRect(4)], ...
-                                            IcurrEnv);
+        [tmp, valid] = findPatch(feature.data, ...
+                                 [xPatch - envRect(1), ...
+                                 yPatch - envRect(2), ...
+                                 envRect(3), envRect(4)], ...
+                                 IcurrEnv);
+        tmpPosition(i,:) = [tmp(1:2) + [envRect(1), envRect(2)], 26, 26];
     end
     
     %% TODO: this is good if all are valid!
     for i = 1:numOfFeatures
-        features(i).data        = imcrop(Icurr, tmpPosition(:,i)');
-        features(i).pos         = tmpPosition(:,i)';
+        features(i).data        = imcrop(Icurr, tmpPosition(i,:));
+        features(i).pos         = tmpPosition(i,:);
         features(i).lastSeen    = currTime;
     end
 %     something = checkConstraints(tmpPos, i); % TODO: implement
