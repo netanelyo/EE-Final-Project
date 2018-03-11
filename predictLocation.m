@@ -1,5 +1,4 @@
-function [ prediction, valid ] = predictLocation(features, i)
-    valid = 1;
+function [ prediction ] = predictLocation(features, i)
     if (i > 2)
         p1 = features(i - 1).pos(1:2);
         p2 = features(i - 2).pos(1:2);
@@ -10,6 +9,6 @@ function [ prediction, valid ] = predictLocation(features, i)
             features(i - 1).lastSeen >= currTime - 1)
         prediction = p1 + round(30*(p1 - p2)/norm(p1 - p2));
     else
-        valid = 0;
+        prediction = features(i).pos(1:2);
     end
 end
